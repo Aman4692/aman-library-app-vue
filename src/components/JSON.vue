@@ -1,9 +1,3 @@
-<!-- <script setup>
-import authors from "../assets/json/authors.json"
-import bookstores from "../assets/json/bookstores.json"
-</script> -->
-
-
 <!-- JSONLab.vue -->
 <template>
   <div class="json-lab">
@@ -17,16 +11,32 @@ import bookstores from "../assets/json/bookstores.json"
       <!-- Activity 6: Render a list containing author names and their birth years. Hint: Make use of the v-for directive to iterate through the array of authors. -->
       <!-- TODO: CODE TO RENDER LIST OF AUTHORS HERE -->
 
+      <ul>
+        <li v-for="author in authors" :key="author.id">
+          {{ author.name }} ({{ author.birthYear }})
+        </li>
+      </ul>
+
       <h3>Filtering Arrays</h3>
       <!-- Activity 7: Render a list containing authors born after 1850. Hint: Make use of the v-for directive to iterate through the array of authors that you have filtered out. -->
       <p>Authors born after 1850:</p>
       <!-- TODO: CODE TO RENDER LIST OF AUTHORS HERE -->
 
+      <ul>
+        <li v-for="author in modernAuthors" :key="author.id">
+          {{ author.name }} ({{ author.birthYear }})
+        </li>
+      </ul>
+
       <h3>Mapping Arrays</h3>
       <p>Famous works:</p>
+
+      <!-- Activity 8: Render a list of all famous works. Hint: Use the v-for directive to iterate through the array of authors that you have filtered out. -->
+      <!-- TODO: CODE TO RENDER LIST OF FAMOUS WORKS HERE -->
       <ul>
-        <!-- Activity 8: Render a list of all famous works. Hint: Use the v-for directive to iterate through the array of authors that you have filtered out. -->
-        <!-- TODO: CODE TO RENDER LIST OF FAMOUS WORKS HERE -->
+        <li v-for="work in allFamousWorks" :key="work">
+          {{ work }}
+        </li>
       </ul>
 
       <h3>Finding in Arrays</h3>
@@ -36,6 +46,10 @@ import bookstores from "../assets/json/bookstores.json"
       <p>{{ austen?.name }}'s works:</p>
       <!-- Activity 9: Render a list of Austen's works. Hint: Use the v-for directive to iterate through the array of authors that you have filtered out. -->
       <!-- TODO: CODE TO RENDER LIST OF AUSTEN'S WORKS HERE -->
+      <ul>
+        <li v-for="work in austen" :key="work"></li>
+        {{ work }}
+      </ul>
     </section>
 
     <section class="lab-section">
@@ -47,6 +61,7 @@ import bookstores from "../assets/json/bookstores.json"
         Company:
         <!-- Activity 9a: Get the company name from the bookstores object. -->
         <!-- TODO: CODE TO GET COMPANY NAME HERE -->
+        <li v-for=""></li>
       </p>
 
       <p>
@@ -99,31 +114,46 @@ import { ref, computed } from "vue"
 import authors from "../assets/json/authors.json"
 import bookstores from "../assets/json/bookstores.json"
 
+//
+//Bookstores Object
+const companyName = computed(() => {
+  bookstores.name
+})
+
+console.log(companyName)
+
+const totalStores = computed(() => {
+  bookstores.name
+})
+
 const showMessage = ref(false)
 
 // Activity 2: Get authors born after 1850
-const modernAuthors = computed(() => {
+const modernAuthors = computed(() =>
   // TODO: CODE TO FILTER ARRAY OF AUTHORS HERE
   authors.filter((author) => author.birthYear > 1850)
-})
+);
+
 
 // Activity 3: Get all famous works
-const allFamousWorks = computed(() => {
+const allFamousWorks = computed(() =>
   // TODO: CODE TO GET ALL FAMOUS WORKS HERE
   authors.flatMap((author) => author.famousWorks.map((work) => work.title))
-})
+)
 
 // Activity 4: Find author by name
-const orwell = computed(() => {
+const orwell = computed(() =>
   // TODO: CODE TO FIND AUTHOR BY NAME HERE
-  authors.filter((author) => author.name == 'George Orwell' )
-})
+  authors.filter((author) => author.name == 'George Orwell')
+)
+
 
 // Activity 5: Find author by ID
-const austen = computed(() => {
+const austen = computed(() =>
   // TODO: CODE TO FIND AUTHOR BY ID HERE
-authors.filter((author) => author.id == 1)
-})
+  authors.filter((author) => author.id == 1)
+)
+
 </script>
 
 <style scoped>
