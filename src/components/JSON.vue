@@ -47,9 +47,14 @@
       <!-- Activity 9: Render a list of Austen's works. Hint: Use the v-for directive to iterate through the array of authors that you have filtered out. -->
       <!-- TODO: CODE TO RENDER LIST OF AUSTEN'S WORKS HERE -->
       <ul>
-        <li v-for="work in austen" :key="work"></li>
-        {{ work }}
+        <li v-for="work in austenWork" :key="work">
+
+          {{ work }}
+
+        </li>
       </ul>
+
+
     </section>
 
     <section class="lab-section">
@@ -58,14 +63,13 @@
 
       <h3>Accessing Properties</h3>
       <p>
-        Company:
+        Company: {{ bookstores.name }}
         <!-- Activity 9a: Get the company name from the bookstores object. -->
         <!-- TODO: CODE TO GET COMPANY NAME HERE -->
-        <li v-for=""></li>
       </p>
 
       <p>
-        Total Stores:
+        Total Stores: {{ bookstores.totalStores }}
         <!-- Activity 9b: Get the total number of stores from the bookstores object. -->
         <!-- TODO: CODE TO GET TOTAL STORES HERE -->
       </p>
@@ -93,8 +97,8 @@
       <!-- Activity 13: Toggle the message visibility when the button is clicked. -->
       <!-- TODO: CODE TO TOGGLE MESSAGE VISIBILITY HERE. Hint: Use the v-if directive. -->
       <button @click="showMessage = !showMessage">Toggle Message</button>
-      <p class="message success">✨ You're a Vue superstar! ✨</p>
-      <p>Click the button to see a message.</p>
+      <p v-if="showMessage" class="message success">✨ You're a Vue superstar! ✨</p>
+      <p v-else class="message">Click the button to see a message.</p>
     </section>
 
     <section class="lab-section">
@@ -120,7 +124,7 @@ const companyName = computed(() => {
   bookstores.name
 })
 
-console.log(companyName)
+// console.log(companyName)
 
 const totalStores = computed(() => {
   bookstores.name
@@ -133,7 +137,7 @@ const modernAuthors = computed(() =>
   // TODO: CODE TO FILTER ARRAY OF AUTHORS HERE
   authors.filter((author) => author.birthYear > 1850)
 );
-
+console.log(modernAuthors.value)
 
 // Activity 3: Get all famous works
 const allFamousWorks = computed(() =>
@@ -153,6 +157,13 @@ const austen = computed(() =>
   // TODO: CODE TO FIND AUTHOR BY ID HERE
   authors.filter((author) => author.id == 1)
 )
+
+// const austenWork = computed(() =>
+//   austen.famousWorks.map((work) => work.title)
+// )
+
+// console.log(austen.value)
+console.log(austen.value)
 
 </script>
 
