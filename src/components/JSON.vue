@@ -78,17 +78,40 @@
       <p>Store Types:</p>
       <!-- Activity 10: Iterate through the storeTypes array and display the store type and the number of stores that use that type. -->
       <!-- TODO: CODE TO RENDER LIST OF STORE TYPES HERE -->
+      <ul>
+        <li v-for="(count, type) in bookstores.storeTypes" :key="type">
+          {{ type }}: {{ count }} store
+        </li>
+      </ul>
+
 
       <h3>Nested Objects</h3>
       <p>Opening Hours:</p>
       <!-- Activity 11: Iterate through the openingHours object and display the day of the week and the opening and closing times. -->
       <!-- TODO: CODE TO RENDER LIST OF OPENING HOURS HERE -->
+      <ul>
+        <li v-for="(hours, day) in bookstores.openingHours" :key="day">
+          <strong>{{ day }}:</strong> Open from {{ hours.open }} to {{ hours.close }}
+        </li>
+      </ul>
 
       <h3>Working with Arrays in Objects</h3>
       <!-- Activity 12: Get the top sellers from the bookstores object. -->
       <!-- TODO: CODE TO GET TOP SELLERS HERE -->
       <p>We operate in:</p>
+      <ul>
+        <li v-for="country in bookstores.countries " :key="country">
+          {{ country }}
+
+        </li>
+      </ul>
       <p>Our #1 seller:</p>
+      <ul>
+        <li v-for="topSeller in bookstores.topSellers " :key="topSeller">
+          {{ topSeller }}
+
+        </li>
+      </ul>
     </section>
 
     <section class="lab-section">
