@@ -43,7 +43,7 @@
       <p>Finding by property: {{ orwell?.name }}</p>
 
       <h3>Nested Arrays/Objects</h3>
-      <p>{{ austen?.name }}'s works:</p>
+      <p>{{ austen[0].name }}'s works:</p>
       <!-- Activity 9: Render a list of Austen's works. Hint: Use the v-for directive to iterate through the array of authors that you have filtered out. -->
       <!-- TODO: CODE TO RENDER LIST OF AUSTEN'S WORKS HERE -->
       <ul>
@@ -159,10 +159,20 @@ const austen = computed(() =>
 )
 
 // const austenWork = computed(() =>
-//   austen.famousWorks.map((work) => work.title)
-// )
+//   authors.flatMap((author) => {
+//     if (author.id == 1) 
+//       console.log(author.name)
+//       author.famousWorks.map((work) => work.title)
+//     // }
+//   }
+//   ))
 
-// console.log(austen.value)
+console.log(authors)
+const austenWork = computed(() =>
+  authors.filter((author) => author.id == 1)).value[0].famousWorks.map((work) => work.title)
+
+console.log(typeof (austenWork))
+// console.log(austenWork.value[0].famousWorks)
 console.log(austen.value)
 
 </script>
