@@ -127,7 +127,7 @@
     <section class="lab-section">
       <h2>Attribute, Class and Style Binding with <code>v-bind</code></h2>
       <p>Highlighting Specific Authors:</p>
-
+      <div :style="{ color: textColor, fontSize: fontSize }"> {{ authors[1].name }}</div>
     </section>
   </div>
 </template>
@@ -135,6 +135,9 @@
 <script setup>
 import { ref, computed } from "vue"
 
+// Additional Activity
+const textColor = ref('blue')
+const fontSize = ref(18)
 // Activity 1: Import JSON files (authors.json and bookstores.json)
 // TODO: CODE TO IMPORT JSON FILES HERE
 
@@ -173,7 +176,7 @@ const orwell = computed(() =>
   // TODO: CODE TO FIND AUTHOR BY NAME HERE
   authors.filter((author) => author.name == 'George Orwell')
 )
-
+console.log(orwell.value[0].name)
 
 // Activity 5: Find author by ID
 const austen = computed(() =>
