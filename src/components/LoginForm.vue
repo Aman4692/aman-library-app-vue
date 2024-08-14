@@ -7,20 +7,21 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" required v-model="FormData.username">
+                            <input type="text" class="form-control" id="username" @blur="() => validateName(true)"
+                                @input="() => validateName(false)" v-model="FormData.username">
+                            <div v-if="errors.username" class="text-danger">{{ errors.username }}</div>
                         </div>
 
                         <div class="col-md-6">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" required minlength="4"
-                                maxlength="10" v-model="FormData.password">
+                            <input type="password" class="form-control" id="password" v-model="FormData.password">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="isAustralian" required 
+                                <input type="checkbox" class="form-check-input" id="isAustralian"
                                     v-model="FormData.isAustralian">
 
                                 <label class="form-check-label" for="isAustralian">Australian Resident?</label>
@@ -30,7 +31,7 @@
                         <div class="col-md-6">
 
                             <label class="form-label" for="gender">Gender</label>
-                            <select class="form-select" id="gender" required v-model="FormData.gender">
+                            <select class="form-select" id="gender" v-model="FormData.gender">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="other">Other</option>
@@ -39,8 +40,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="reason" class="form-label">Reason for Joining</label>
-                        <textarea class="form-control" id="reason" rows="3" required minlength="15"
-                            v-model="FormData.reason"></textarea>
+                        <textarea class="form-control" id="reason" rows="3" v-model="FormData.reason"></textarea>
 
                     </div>
 
@@ -88,10 +88,41 @@ const FormData = ref({
 const submittedCards = ref([]);
 
 const submitForm = () => {
-    submittedCards.value.push({
-        ...FormData.value
-    });
+    validateName(true);
+    if (!errors.value.username) {
+        submittedCards.value.push({ ...FormData.value });
+        clearForm();
+    }
 };
+
+const clearForm = () => {
+    FormData.value = {
+        username: '',
+        password: '',
+        isAustralian: false,
+        reason: '',
+        gender: ''
+    };
+};
+
+const errors = ref({
+    username: null,
+    password: null,
+    gender: null,
+    resident: null,
+    reason: null
+})
+
+const validateName = (blur) => {
+    if (FormData.value.username.length < 3) {
+        if (blur) errors.value.username = "Name must be at least 3 characters";
+    }
+    else {
+        errors.value.username = null;
+    }
+};
+
+
 
 </script>
 
