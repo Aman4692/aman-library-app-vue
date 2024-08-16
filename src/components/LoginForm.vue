@@ -43,7 +43,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="reason" class="form-label">Reason for Joining</label>
-                        <textarea class="form-control" required minlength="10" id="reason" rows="3" v-model="FormData.reason"></textarea>
+                        <textarea class="form-control" required minlength="10" id="reason" rows="3"
+                            v-model="FormData.reason"></textarea>
 
                     </div>
 
@@ -57,15 +58,16 @@
             </div>
         </div>
     </div>
-    <!-- 
-    <div v-for="(card, index) in submittedCards" class="card" :key="index">
+    <br>
+
     <DataTable :value="submittedCards" tableStyle="min-width: 50rem">
-        <Column field={{ card.username }} header="Code"></Column>
-        <Column field="name" header="Name"></Column>
-        <Column field="category" header="Category"></Column>
-        <Column field="quantity" header="Quantity"></Column>
+        <Column field="username" header="Username">{{ submittedCards.username }}</Column>
+        <Column field="password" header="Password">{{ submittedCards.password }}</Column>
+        <Column field="isAustralian" header="Australian Resident">{{ submittedCards.isAustralian ? 'Yes' : 'No'}}</Column>
+        <Column field="gender" header="Gender">{{ submittedCards.gender }}</Column>
+        <Column field="reason" header="Reason">{{ submittedCards.reason }}</Column>
     </DataTable>
-</div> -->
+
     <div class="row mt-5" v-if="submittedCards.length">
         <div class="d-flex flex-wrap justify-content-start">
             <div v-for="(card, index) in submittedCards" :key="index" class="card m-2" style="width: 18rem;">
@@ -88,6 +90,9 @@
 <script setup>
 
 import { ref } from 'vue';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+
 const FormData = ref({
     username: '',
     password: '',
