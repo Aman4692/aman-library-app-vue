@@ -5,16 +5,19 @@
                 <h1 class="text-center">User Information / Credentials</h1>
                 <form @submit.prevent="submitForm">
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" @blur="() => validateName(true)"
                                 @input="() => validateName(false)" v-model="FormData.username">
                             <div v-if="errors.username" class="text-danger">{{ errors.username }}</div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" v-model="FormData.password">
+                            <input type="password" class="form-control" id="password"
+                                @blur="() => validatePassword(true)" @input="() => validatePassword(false)"
+                                v-model="FormData.password">
+                            <div v-if="errors.password" class="text-danger">{{ errors.password }}</div>
                         </div>
                     </div>
 
@@ -40,7 +43,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="reason" class="form-label">Reason for Joining</label>
-                        <textarea class="form-control" id="reason" rows="3" v-model="FormData.reason"></textarea>
+                        <textarea class="form-control" required minlength="10" id="reason" rows="3" v-model="FormData.reason"></textarea>
 
                     </div>
 
@@ -54,7 +57,15 @@
             </div>
         </div>
     </div>
-
+    <!-- 
+    <div v-for="(card, index) in submittedCards" class="card" :key="index">
+    <DataTable :value="submittedCards" tableStyle="min-width: 50rem">
+        <Column field={{ card.username }} header="Code"></Column>
+        <Column field="name" header="Name"></Column>
+        <Column field="category" header="Category"></Column>
+        <Column field="quantity" header="Quantity"></Column>
+    </DataTable>
+</div> -->
     <div class="row mt-5" v-if="submittedCards.length">
         <div class="d-flex flex-wrap justify-content-start">
             <div v-for="(card, index) in submittedCards" :key="index" class="card m-2" style="width: 18rem;">
@@ -89,7 +100,8 @@ const submittedCards = ref([]);
 
 const submitForm = () => {
     validateName(true);
-    if (!errors.value.username) {
+    validatePassword(true);
+    if (!errors.value.username && !errors.value.password) {
         submittedCards.value.push({ ...FormData.value });
         clearForm();
     }
@@ -122,7 +134,29 @@ const validateName = (blur) => {
     }
 };
 
+const validatePassword = (blur) => {
+    const password = FormData.value.password;
+    const minLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
+    if (password.length < minLength) {
+        if (blur) errors.value.password = 'Password must be atleast 8 characters long.';
+    } else if (!hasUppercase) {
+        if (blur) errors.value.password = "Password must contain at least one uppercase letter";
+    } else if (!hasLowerCase) {
+        if (blur) errors.value.password = "Password must contain at least one lowercase letter";
+    } else if (!hasNumber) {
+        if (blur) errors.value.password = "Password must contain at least one number";
+    } else if (!hasSpecialChar) {
+        if (blur) errors.value.password = "Password must contain at least one special character";
+    }
+    else {
+        errors.value.password = null;
+    }
+};
 
 </script>
 
