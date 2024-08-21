@@ -50,6 +50,13 @@
 
 
                     </div>
+
+                    <div class="row mb-3">
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">Suburb</label>
+                            <input type="text" class="form-control" id="suburb" v-bind:value="FormData.suburb" />
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label for="reason" class="form-label">Reason for Joining</label>
                         <textarea class="form-control" required minlength="10" id="reason" rows="3"
@@ -109,7 +116,8 @@ const FormData = ref({
     confirmPassword: '',
     isAustralian: false,
     reason: '',
-    gender: ''
+    gender: '',
+    suburb: 'Clayton'
 });
 
 const submittedCards = ref([]);
