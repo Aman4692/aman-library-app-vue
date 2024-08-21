@@ -2,25 +2,20 @@
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import JsonVue from './components/JSON.vue'
-import LoginForm from './components/LoginForm.vue'
+// import LoginForm from './components/HomeView.vue'
+import BHeader from './components/BHeader.vue'
 </script>
 
 <template>
-  <LoginForm />
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="main-container">
+    <header>
+      <BHeader />
+    </header>
 
-    <div class="wrapper">
-      <!-- <HelloWorld msg="You did it!" /> -->
-      <!-- <JsonVue /> -->
-    <!-- </div> -->
-  <!-- </header> -->
-
-  <!-- <main> -->
-    
-    
-  <!-- </main> -->
-
+    <main class="main-box">
+      <router-view></router-view>
+    </main>
+  </div>
   
 </template>
 
