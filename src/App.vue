@@ -2,8 +2,8 @@
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import JsonVue from './components/JSON.vue'
-// import LoginForm from './components/HomeView.vue'
 import BHeader from './components/BHeader.vue'
+import HomeView from './views/HomeView.vue'
 </script>
 
 <template>
@@ -13,10 +13,10 @@ import BHeader from './components/BHeader.vue'
     </header>
 
     <main class="main-box">
-      <router-view></router-view>
+      <router-view />
     </main>
   </div>
-  
+
 </template>
 
 <style scoped>

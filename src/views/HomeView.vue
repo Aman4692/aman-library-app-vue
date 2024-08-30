@@ -13,7 +13,6 @@
                         </div>
 
                         <div class="col-md-6">
-
                             <label class="form-label" for="gender">Gender</label>
                             <select class="form-select" id="gender" v-model="FormData.gender">
                                 <option value="male">Male</option>

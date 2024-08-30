@@ -1,6 +1,8 @@
-import { createRouter,createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
+import LoginView from "@/views/LoginView.vue";
+import { useUserAuthStore } from "@/stores/UserAuthStore";
 
 const routes = [
     {
@@ -9,9 +11,23 @@ const routes = [
         component: HomeView
     },
     {
-        path:'/about',
-        name:'About',
-        component:AboutView
+        path: '/about',
+        name: 'About',
+        component: AboutView,
+        beforeEnter: (to, from, next) => {
+
+            if (useUserAuthStore().isUserLoggedIn) {
+                next();
+            }
+            else {
+                next({ name: 'Login' })
+            }
+        }
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: LoginView
     }
 ]
 
