@@ -33,6 +33,7 @@
 <script setup>
 import router from '@/router';
 import { useUserAuthStore } from '@/stores/UserAuthStore';
+import { useUserDetailsStore } from '@/stores/UserDetailsStore';
 import { ref } from 'vue';
 
 
@@ -43,17 +44,37 @@ const FormData = ref({
 
 const submittedCards = ref([]);
 const userAuth = useUserAuthStore();
+const userDetails = useUserDetailsStore();
 
 const submitForm = () => {
     validateName(true);
     validatePassword(true);
     console.log('abccccccccc')
     if (!errors.value.username && !errors.value.password) {
-        console.log('abccccddddddddddddddddddddddddddddccccc')
-        userAuth.login(true);
-        submittedCards.value.push({ ...FormData.value });
-        console.log(userAuth.isUserLoggedIn)
-        router.push('/about')
+        if (!errors.value.username && !errors.value.password) {
+            for (let i = 0; i < userDetails.getAllUsers.length; i++) {
+                console.log('in loginnnnn')
+                if (userDetails.getAllUsers[i].userEmail === FormData.value.username) {
+                    console.log('email id is matched')
+                    if (userDetails.getAllUsers[i].userPassword === FormData.value.password) {
+                        console.log('aaajjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
+                        // console.log(userAuth)
+                        console.log(userAuth.isUserLoggedIn)
+                        userAuth.loginUser({
+                            isLoggedIn: true,
+                            authLevel: userDetails.getAllUsers[i].userRole
+                        })
+                        console.log(userAuth.isUserLoggedIn)
+                        console.log(userAuth.authenticationLevel)
+                        console.log('User Details:',userDetails.getAllUsers[i])
+                        router.push('/about')
+                    }
+                    else {
+                        alert("Wrong Credentials. Please recheck credentials")
+                    }
+                }
+            }
+        }
     }
 };
 
@@ -81,18 +102,18 @@ const validatePassword = (blur) => {
     const hasNumber = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-    if (password !== 'abc') {
+    if (password < minLength) {
         if (blur) errors.value.password = 'Password must be atleast 8 characters long.';
     }
-    // else if (!hasUppercase) {
-    //     if (blur) errors.value.password = "Password must contain at least one uppercase letter";
-    // } else if (!hasLowerCase) {
-    //     if (blur) errors.value.password = "Password must contain at least one lowercase letter";
-    // } else if (!hasNumber) {
-    //     if (blur) errors.value.password = "Password must contain at least one number";
-    // } else if (!hasSpecialChar) {
-    //     if (blur) errors.value.password = "Password must contain at least one special character";
-    // }
+    else if (!hasUppercase) {
+        if (blur) errors.value.password = "Password must contain at least one uppercase letter";
+    } else if (!hasLowerCase) {
+        if (blur) errors.value.password = "Password must contain at least one lowercase letter";
+    } else if (!hasNumber) {
+        if (blur) errors.value.password = "Password must contain at least one number";
+    } else if (!hasSpecialChar) {
+        if (blur) errors.value.password = "Password must contain at least one special character";
+    }
     else {
         errors.value.password = null;
     }

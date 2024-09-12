@@ -21,6 +21,14 @@
                             </select>
                         </div>
 
+                        <div class="col-md-6">
+                            <label class="form-label" for="role">Role</label>
+                            <select class="form-select" id="role" v-model="FormData.role" required>
+                                <option value="admin">Admin</option>
+                                <option value="customer">Customer</option>
+                            </select>
+                        </div>
+
                         <div class="col-md-6 col-sm-6">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password"
@@ -108,6 +116,10 @@
 import { ref } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import { useUserDetailsStore } from '@/stores/UserDetailsStore';
+import router from '@/router';
+
+const userDetails = useUserDetailsStore()
 
 const FormData = ref({
     username: '',
@@ -116,7 +128,8 @@ const FormData = ref({
     isAustralian: false,
     reason: '',
     gender: '',
-    suburb: 'Clayton'
+    suburb: 'Clayton',
+    role: ''
 });
 
 const submittedCards = ref([]);
@@ -125,8 +138,14 @@ const submitForm = () => {
     validateName(true);
     validatePassword(true);
     if (!errors.value.username && !errors.value.password) {
+        userDetails.addUser({
+            userEmail: FormData.value.username,
+            userPassword: FormData.value.password,
+            userRole: FormData.value.role
+        })
         submittedCards.value.push({ ...FormData.value });
         clearForm();
+        router.push('/login')
     }
 };
 
@@ -137,7 +156,8 @@ const clearForm = () => {
         confirmPassword: '',
         isAustralian: false,
         reason: '',
-        gender: ''
+        gender: '',
+        role: ''
     };
 };
 
@@ -147,7 +167,8 @@ const errors = ref({
     confirmPassword: null,
     gender: null,
     resident: null,
-    reason: null
+    reason: null,
+    role: null
 })
 
 const validateName = (blur) => {

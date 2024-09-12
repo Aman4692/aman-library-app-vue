@@ -29,12 +29,22 @@
         </button>
         <button @click="clearSelection">Cancel</button>
     </div>
+    <br><br>
+
+    <div>
+        <h1>Fetching Data using a combination of 'where','orderBy' and 'limit' functions</h1>
+        <ul>
+            <li v-for="book in filteredBooks" :key="book.id">
+                {{ book.name }} - ISBN: {{ book.isbn }}
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue';
 import db from '../firebase/init'
-import { collection, query, where, getDocs, updateDoc, deleteDoc, doc, setDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, updateDoc, deleteDoc, doc, setDoc, orderBy, limit } from 'firebase/firestore';
 
 export default {
     setup() {
@@ -43,6 +53,21 @@ export default {
         const selectedBook = ref(null);
         const form = ref({ name: '', isbn: '' });
         const isEditing = ref(false);
+        const filteredBooks = ref([]);
+
+        const filterBooks = async () => {
+            try {
+                const q = query(collection(db, 'books'), where('isbn', '>', 5000), orderBy('isbn'), limit(2))
+                const querySnapshot = await getDocs(q);
+                const booksArray = [];
+                querySnapshot.forEach((doc) => {
+                    booksArray.push({ id: doc.id, ...doc.data() });
+                });
+                filteredBooks.value = booksArray;
+            } catch (error) {
+                console.error('Error fetching books: ', error);
+            }
+        }
 
         const fetchAllBooks = async () => {
             try {
@@ -128,10 +153,11 @@ export default {
         onMounted(() => {
             fetchBooks();
             fetchAllBooks();
+            filterBooks();
         });
 
         return {
-            books, allBooks, selectedBook, form, isEditing, editBook, addBook, updateBook, deleteBook, clearSelection
+            books, allBooks, selectedBook, form, isEditing, editBook, addBook, updateBook, deleteBook, clearSelection, filteredBooks
         };
     }
 };
