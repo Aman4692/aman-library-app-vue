@@ -76,16 +76,16 @@ export default {
                 const booksArray = [];
 
                 querySnapshot.forEach((doc) => {
-                    console.log(doc.id)
-                    console.log(doc.data())
+                    // console.log(doc.id)
+                    // console.log(doc.data())
                     booksArray.push({ id: doc.id, ...doc.data() });
                     // console.log(booksArray)
                 });
 
-                console.log(booksArray)
-                console.log(allBooks.value)
+                // console.log(booksArray)
+                // console.log(allBooks.value)
                 allBooks.value = booksArray;
-                console.log(allBooks.value)
+                // console.log(allBooks.value)
 
             } catch (error) {
                 console.error('Error fetching books: ', error);
