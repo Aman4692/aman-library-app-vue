@@ -15,6 +15,12 @@
                     <router-link to="/addbook" class="nav-link" active-class="active">Add Book</router-link>
                 </li>
                 <li class="nav-item">
+                    <router-link to="/getbookcount" class="nav-link" active-class="active">Get Book Count</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/CountBookAPI" class="nav-link" active-class="active">Count Book API</router-link>
+                </li>
+                <li class="nav-item">
                     <router-link to="/login" class="nav-link" active-class="active">Login</router-link>
                 </li>
                 <li class="nav-item">
@@ -23,6 +29,9 @@
                 <li class="nav-item">
                     <router-link to="/FireRegister" class="nav-link" active-class="active">Firebase
                         Register</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/WeatherCheck" class="nav-link" active-class="active">Weather Info</router-link>
                 </li>
             </ul>
         </header>

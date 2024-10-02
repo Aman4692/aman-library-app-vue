@@ -15,6 +15,9 @@
             <button type="submit">Add Book</button>
         </form>
     </div>
+    <div>
+        <h1>Book Name in Uppercase : {{ updateName }}</h1>
+    </div>
 
     <BookList></BookList>
 </template>
@@ -24,9 +27,11 @@ import { ref } from 'vue';
 import { collection, addDoc } from 'firebase/firestore';
 import db from '../firebase/init';
 import BookList from '../components/BookList.vue';
+import axios from 'axios';
 
 const isbn = ref('');
 const name = ref('');
+var updateName = ref('');
 
 const addBook = async () => {
     try {
@@ -36,9 +41,14 @@ const addBook = async () => {
             return;
         }
 
+        const response = axios.post('https://capitalisedata-2zzotarxnq-uc.a.run.app', { text: name.value })
+
+        console.log(await response)
+        updateName.value = (await response).data.updatedText
+
         await addDoc(collection(db, 'books'), {
             isbn: isbnNumber,
-            name: name.value
+            name: updateName.value
         });
         isbn.value = '';
         name.value = '';
