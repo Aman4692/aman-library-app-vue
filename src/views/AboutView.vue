@@ -18,8 +18,8 @@ import { useUserAuthStore } from '@/stores/UserAuthStore';
 const userAuth = useUserAuthStore();
 
 const logout = () => {
-userAuth.login(false)
-router.push('/login')
+    userAuth.login(false)
+    router.push('/login')
 }
 </script>
 

@@ -66,7 +66,7 @@ const submitForm = () => {
                         })
                         console.log(userAuth.isUserLoggedIn)
                         console.log(userAuth.authenticationLevel)
-                        console.log('User Details:',userDetails.getAllUsers[i])
+                        console.log('User Details:', userDetails.getAllUsers[i])
                         router.push('/about')
                     }
                     else {

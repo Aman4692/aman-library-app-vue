@@ -7,7 +7,6 @@ import { ref, onMounted } from 'vue';
 import db from '../firebase/init'
 import { collection, getDocs } from 'firebase/firestore';
 
-
 export default {
     setup() {
         const jsondata = ref({});
@@ -17,13 +16,10 @@ export default {
                 const q = collection(db, 'books');
                 const querySnapshot = await getDocs(q);
                 const booksArray = [];
-                console.log(querySnapshot)
-
                 querySnapshot.forEach((doc) => {
-                    booksArray.push({  ...doc.data() });
+                    booksArray.push({ ...doc.data() });
                 });
                 jsondata.value = { books: booksArray }
-
             } catch (error) {
                 console.error('Error fetching books: ', error);
             }

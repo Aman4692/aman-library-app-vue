@@ -32,9 +32,9 @@ exports.countBooks = onRequest((req, res) => {
 exports.capitaliseData = onRequest((req, res) => {
     cors(req, res, async () => {
         try {
-            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+            console.log('aaaaaaaaaaaaaaaaaa')
             console.log(req)
-            console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+            console.log('bbbbbbbbbbbbbbbbbbbbbbbbb')
             console.log(req.body.text)
             const text = req.body.text
             // console.log(text)
